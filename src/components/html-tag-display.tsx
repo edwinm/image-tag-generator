@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Copy, Check } from 'lucide-react';
+import { Copy, Check, Sparkles } from 'lucide-react'; // Added Sparkles
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
@@ -21,16 +21,21 @@ const HtmlTagDisplay: React.FC<HtmlTagDisplayProps> = ({ htmlTag }) => {
       await navigator.clipboard.writeText(htmlTag);
       setCopied(true);
       toast({
-        title: "Copied to clipboard!",
-        description: "The HTML tag is now in your clipboard.",
-        // Consider adding custom styling for success using accent color if desired
+        title: (
+          <div className="flex items-center gap-2">
+            <Sparkles className="h-5 w-5 text-accent" /> 
+            <span>Poof! Copied to Clipboard!</span>
+          </div>
+        ),
+        description: "Your HTML magic is ready to paste!",
+        // Using accent color for the toast icon
       });
-      setTimeout(() => setCopied(false), 2000);
+      setTimeout(() => setCopied(false), 2500); // Slightly longer for the fun message
     } catch (err) {
       console.error('Failed to copy: ', err);
       toast({
-        title: "Copy failed",
-        description: "Could not copy the HTML tag to your clipboard.",
+        title: "Oops! Copy Failed",
+        description: "Couldn't grab the HTML. Try again?",
         variant: "destructive",
       });
     }
@@ -50,13 +55,13 @@ const HtmlTagDisplay: React.FC<HtmlTagDisplayProps> = ({ htmlTag }) => {
         size="icon"
         className={cn(
             "absolute top-2 right-2 h-8 w-8 transition-opacity opacity-50 group-hover:opacity-100 focus:opacity-100",
-            copied ? "text-accent-foreground bg-accent/20 hover:bg-accent/30" : "text-muted-foreground hover:text-foreground"
+            copied ? "text-accent-foreground bg-accent/30 hover:bg-accent/40" : "text-muted-foreground hover:text-foreground"
         )}
         onClick={handleCopy}
-        aria-label={copied ? "Copied" : "Copy HTML tag"}
+        aria-label={copied ? "Copied!" : "Copy HTML tag"}
         disabled={!htmlTag}
       >
-        {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+        {copied ? <Check className="h-4 w-4 text-accent-foreground" /> : <Copy className="h-4 w-4" />}
       </Button>
     </div>
   );

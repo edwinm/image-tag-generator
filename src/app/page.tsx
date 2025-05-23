@@ -3,12 +3,12 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
-import { AlertCircle, Loader2 } from 'lucide-react';
+import { AlertCircle, Loader2, Sparkles } from 'lucide-react';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button'; // For potential future use e.g. retry
+import { Button } from '@/components/ui/button'; 
 import ImageUploader, { type ImageDetails } from '@/components/image-uploader';
 import HtmlTagDisplay from '@/components/html-tag-display';
 import { generateAltText, type GenerateAltTextInput } from '@/ai/flows/generate-alt-text';
@@ -34,7 +34,7 @@ export default function Home() {
       })
       .catch(err => {
         console.error("Error generating alt text:", err);
-        setError("Failed to generate alt text. Please try another image or write it manually.");
+        setError("Whoops! Our AI wizards couldn't conjure up alt text this time. Try another image or write it yourself!");
         setAltText(''); // Ensure alt text is empty on error
       })
       .finally(() => {
@@ -43,11 +43,11 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (imageDetails && (altText || !isGeneratingAltText)) { // Update HTML if altText is ready or generation finished (even if empty)
+    if (imageDetails && (altText || !isGeneratingAltText)) { 
       const html = `<img src="${imageDetails.name}" alt="${altText.replace(/"/g, '&quot;')}" width="${imageDetails.width}" height="${imageDetails.height}" />`;
       setGeneratedHtml(html);
     } else if (!imageDetails) {
-      setGeneratedHtml(''); // Clear HTML if no image
+      setGeneratedHtml(''); 
     }
   }, [imageDetails, altText, isGeneratingAltText]);
 
@@ -55,9 +55,9 @@ export default function Home() {
     <main className="container mx-auto p-4 md:p-8 max-w-3xl min-h-screen flex flex-col items-center justify-center">
       <div className="w-full">
         <header className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-primary">Image Tag Generator</h1>
+          <h1 className="text-4xl font-bold text-primary">✨ Magical Image Tag Wizard ✨</h1>
           <p className="text-muted-foreground mt-2">
-            Upload an image, and we&apos;ll generate the HTML tag with AI-powered alt text.
+            Wave your mouse, upload an image, and POOF! HTML with AI alt text appears!
           </p>
         </header>
 
@@ -68,7 +68,7 @@ export default function Home() {
             {error && !isGeneratingAltText && (
               <Alert variant="destructive" className="mt-6">
                 <AlertCircle className="h-4 w-4" />
-                <AlertTitle>Error</AlertTitle>
+                <AlertTitle>Oh no!</AlertTitle>
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
@@ -76,7 +76,7 @@ export default function Home() {
             {imageDetails && (
               <div className="mt-8 space-y-8">
                 <section aria-labelledby="image-preview-heading">
-                  <h2 id="image-preview-heading" className="text-2xl font-semibold mb-3 text-foreground">Image Preview</h2>
+                  <h2 id="image-preview-heading" className="text-2xl font-semibold mb-3 text-foreground">Your Awesome Image</h2>
                   <div className="border rounded-lg overflow-hidden p-2 bg-muted/30 flex justify-center items-center">
                     <Image 
                       src={imageDetails.dataUrl} 
@@ -90,24 +90,24 @@ export default function Home() {
                 </section>
 
                 <section aria-labelledby="alt-text-heading">
-                  <h2 id="alt-text-heading" className="text-2xl font-semibold mb-3 text-foreground">Alt Text</h2>
+                  <h2 id="alt-text-heading" className="text-2xl font-semibold mb-3 text-foreground">AI-Powered Alt Text</h2>
                   {isGeneratingAltText ? (
                     <div className="flex items-center space-x-2 text-muted-foreground p-3 border rounded-md bg-muted/30">
-                      <Loader2 className="h-5 w-5 animate-spin text-primary" />
-                      <span>Generating alt text... This may take a moment.</span>
+                      <Sparkles className="h-5 w-5 animate-pulse text-primary" />
+                      <span>Conjuring up some amazing alt text... Abracadabra!</span>
                     </div>
                   ) : (
                     <>
                       <Textarea
                         value={altText}
                         onChange={(e) => setAltText(e.target.value)}
-                        placeholder="AI-generated alt text will appear here. You can edit it."
+                        placeholder="Our AI wizards will type alt text here... or you can edit their magic!"
                         rows={4}
                         className="mb-2 focus:ring-primary focus:border-primary"
                         aria-label="Generated or editable alt text"
                       />
                       <p className="text-sm text-muted-foreground">
-                        {altText ? "Review and edit the AI-generated alt text above." : "Alt text generation failed or returned empty. Please write one manually."}
+                        {altText ? "Review and polish the AI's magical alt text!" : "The AI's crystal ball is cloudy. Please write your own enchanting alt text."}
                       </p>
                     </>
                   )}
@@ -115,7 +115,7 @@ export default function Home() {
 
                 {(generatedHtml && (!isGeneratingAltText || altText)) && (
                   <section aria-labelledby="html-tag-heading">
-                    <h2 id="html-tag-heading" className="text-2xl font-semibold mb-3 text-foreground">Generated HTML Tag</h2>
+                    <h2 id="html-tag-heading" className="text-2xl font-semibold mb-3 text-foreground">Your HTML Spell</h2>
                     <HtmlTagDisplay htmlTag={generatedHtml} />
                   </section>
                 )}
@@ -124,7 +124,7 @@ export default function Home() {
           </CardContent>
         </Card>
         <footer className="text-center mt-8 mb-4 text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} Image Tag Generator. Powered by AI.</p>
+          <p>&copy; {new Date().getFullYear()} Magical Image Tag Wizard. Crafted with a sprinkle of AI magic.</p>
         </footer>
       </div>
     </main>

@@ -1,3 +1,4 @@
+
 import type {Metadata} from 'next';
 import {Geist, Geist_Mono} from 'next/font/google';
 import './globals.css';
@@ -15,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Image Tag Generator',
-  description: 'Generate HTML image tags with AI-powered alt text.',
+  title: '✨ Magical Image Tag Wizard ✨',
+  description: 'Generate HTML image tags with a sprinkle of AI magic!',
 };
 
 export default function RootLayout({
