@@ -1,3 +1,4 @@
+
 // Use server directive is required for all Genkit flows.
 'use server';
 
@@ -47,8 +48,33 @@ const generateAltTextFlow = ai.defineFlow(
     inputSchema: GenerateAltTextInputSchema,
     outputSchema: GenerateAltTextOutputSchema,
   },
-  async input => {
-    const {output} = await prompt(input);
-    return output!;
+  async (input): Promise<GenerateAltTextOutput> => {
+    try {
+      const response = await prompt(input); // Returns Promise<GenerateResponse<GenerateAltTextOutput>>
+
+      if (response.output && typeof response.output.altText === 'string') {
+        // Even if altText is empty, it's a valid string response.
+        // The UI handles empty alt text.
+        return response.output;
+      } else {
+        console.warn(
+          'Alt text generation by AI did not produce the expected output structure.',
+          'Response output:', response.output,
+          'Candidates:', response.candidates
+        );
+        // Check candidates for reasons like safety filtering
+        if (response.candidates && response.candidates.length > 0) {
+          response.candidates.forEach((candidate, index) => {
+            console.warn(`Candidate ${index} finishReason: ${candidate.finishReason}, finishMessage: ${candidate.finishMessage}`);
+          });
+        }
+        return { altText: '' }; // Default to empty alt text
+      }
+    } catch (error) {
+      console.error('Error during generateAltTextFlow execution:', error);
+      // Propagate a generic error or return a default value
+      // Returning empty alt text allows the UI to handle it gracefully
+      return { altText: '' };
+    }
   }
 );
