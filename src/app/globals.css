@@ -110,3 +110,15 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* Styles for HTML syntax highlighting */
+.html-tag-name {
+  color: hsl(var(--primary)); /* Teal */
+  font-weight: 600;
+}
+.html-attr-name {
+  color: hsl(var(--accent)); /* Orange/Yellow */
+}
+.html-attr-value {
+  color: hsl(220 20% 40%); /* Desaturated blue, good for text content */
+}
