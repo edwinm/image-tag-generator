@@ -3,12 +3,11 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
-import { AlertCircle, Loader2, Sparkles } from 'lucide-react';
+import { AlertCircle, Sparkles } from 'lucide-react';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
 import ImageUploader, { type ImageDetails } from '@/components/image-uploader';
 import HtmlTagDisplay from '@/components/html-tag-display';
 import { generateAltText, type GenerateAltTextInput } from '@/ai/flows/generate-alt-text';
@@ -55,7 +54,7 @@ export default function Home() {
     <main className="container mx-auto p-4 md:p-8 max-w-3xl min-h-screen flex flex-col items-center justify-center">
       <div className="w-full">
         <header className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-primary">✨ Magical Image Tag Wizard ✨</h1>
+          <h1 className="text-4xl font-bold text-primary">Magical Image Tag Wizard</h1>
           <p className="text-muted-foreground mt-2">
             Upload an image to generate an HTML tag with AI-assisted alt text.
           </p>
@@ -66,7 +65,7 @@ export default function Home() {
             <ImageUploader onImageUpload={handleImageUpload} isProcessing={isGeneratingAltText} />
 
             {error && !isGeneratingAltText && (
-              <Alert variant="destructive" className="mt-6">
+              <Alert variant="destructive" className="mt-6 animate-in fade-in-0 duration-500">
                 <AlertCircle className="h-4 w-4" />
                 <AlertTitle>Error</AlertTitle>
                 <AlertDescription>Failed to generate alt text. Please try another image or write it manually.</AlertDescription>
@@ -74,7 +73,7 @@ export default function Home() {
             )}
 
             {imageDetails && (
-              <div className="mt-8 space-y-8">
+              <div className="mt-8 space-y-8 animate-in fade-in-0 duration-700 ease-out">
                 <section aria-labelledby="image-preview-heading">
                   <h2 id="image-preview-heading" className="text-2xl font-semibold mb-3 text-foreground">Image Preview</h2>
                   <div className="border rounded-lg overflow-hidden p-2 bg-muted/30 flex justify-center items-center">
@@ -94,7 +93,7 @@ export default function Home() {
                   {isGeneratingAltText ? (
                     <div className="flex items-center space-x-2 text-muted-foreground p-3 border rounded-md bg-muted/30">
                       <Sparkles className="h-5 w-5 animate-pulse text-primary" />
-                      <span>Generating alt text...</span>
+                      <span>Generating alt text... Magically!</span>
                     </div>
                   ) : (
                     <>
