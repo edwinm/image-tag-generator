@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: '✨ Magical Image Tag Wizard ✨',
-  description: 'Generate HTML image tags with a sprinkle of AI magic!',
+  description: 'Generate HTML image tags with AI-powered alt text.',
 };
 
 export default function RootLayout({

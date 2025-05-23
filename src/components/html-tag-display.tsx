@@ -2,7 +2,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Copy, Check, Sparkles } from 'lucide-react'; // Added Sparkles
+import { Copy, Check, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
@@ -21,21 +21,15 @@ const HtmlTagDisplay: React.FC<HtmlTagDisplayProps> = ({ htmlTag }) => {
       await navigator.clipboard.writeText(htmlTag);
       setCopied(true);
       toast({
-        title: (
-          <div className="flex items-center gap-2">
-            <Sparkles className="h-5 w-5 text-accent" /> 
-            <span>Poof! Copied to Clipboard!</span>
-          </div>
-        ),
-        description: "Your HTML magic is ready to paste!",
-        // Using accent color for the toast icon
+        title: "Copied to Clipboard!",
+        description: "The HTML tag has been copied to your clipboard.",
       });
-      setTimeout(() => setCopied(false), 2500); // Slightly longer for the fun message
+      setTimeout(() => setCopied(false), 2500);
     } catch (err) {
       console.error('Failed to copy: ', err);
       toast({
-        title: "Oops! Copy Failed",
-        description: "Couldn't grab the HTML. Try again?",
+        title: "Copy Failed",
+        description: "Could not copy the HTML tag. Please try again.",
         variant: "destructive",
       });
     }
@@ -43,7 +37,7 @@ const HtmlTagDisplay: React.FC<HtmlTagDisplayProps> = ({ htmlTag }) => {
 
   return (
     <div className="relative group">
-      <pre 
+      <pre
         className="bg-muted p-4 rounded-md overflow-x-auto text-sm text-muted-foreground border"
         aria-live="polite"
         aria-atomic="true"
@@ -54,7 +48,7 @@ const HtmlTagDisplay: React.FC<HtmlTagDisplayProps> = ({ htmlTag }) => {
         variant="ghost"
         size="icon"
         className={cn(
-            "absolute top-2 right-2 h-8 w-8 transition-opacity opacity-50 group-hover:opacity-100 focus:opacity-100",
+            "absolute top-2 right-2 h-8 w-8 opacity-50 group-hover:opacity-100 focus:opacity-100 hover:scale-110 transform transition-all duration-150 ease-in-out",
             copied ? "text-accent-foreground bg-accent/30 hover:bg-accent/40" : "text-muted-foreground hover:text-foreground"
         )}
         onClick={handleCopy}

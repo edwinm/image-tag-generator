@@ -112,8 +112,8 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageUpload, isProcessi
         onDragOver={handleDragOver}
         onDrop={handleDrop}
         className={cn(
-          "w-full p-8 border-2 border-dashed rounded-lg text-center cursor-pointer transition-colors duration-200 ease-in-out",
-          isProcessing ? "bg-muted cursor-not-allowed border-muted" : 
+          "w-full p-8 border-2 border-dashed rounded-lg text-center cursor-pointer transition-colors duration-200 ease-in-out group",
+          isProcessing ? "bg-muted cursor-not-allowed border-muted" :
           isDragging ? "border-primary bg-primary/10" : "border-border hover:border-primary/70 hover:bg-secondary/50"
         )}
         role="button"
@@ -129,7 +129,10 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ onImageUpload, isProcessi
           className="hidden"
           disabled={isProcessing}
         />
-        <UploadCloud className={cn("mx-auto h-12 w-12 mb-3", isProcessing ? "text-muted-foreground" : "text-primary")} />
+        <UploadCloud className={cn(
+            "mx-auto h-12 w-12 mb-3 group-hover:scale-110 transition-transform duration-200 ease-in-out",
+            isProcessing ? "text-muted-foreground" : "text-primary"
+        )} />
         <p className={cn("font-semibold text-lg", isProcessing ? "text-muted-foreground" : "text-foreground")}>
           {isProcessing ? "Processing..." : "Drag & drop an image here"}
         </p>
