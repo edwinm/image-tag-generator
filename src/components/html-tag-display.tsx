@@ -77,7 +77,7 @@ const HtmlTagDisplay: React.FC<HtmlTagDisplayProps> = ({ htmlTag }) => {
   return (
     <div className="relative group">
       <pre
-        className="bg-muted p-4 rounded-md overflow-x-auto text-sm text-muted-foreground border"
+        className="bg-muted p-4 pr-12 rounded-md overflow-x-auto text-sm text-muted-foreground border"
         aria-live="polite"
         aria-atomic="true"
       >
