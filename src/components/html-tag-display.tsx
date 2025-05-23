@@ -51,15 +51,15 @@ const HtmlTagDisplay: React.FC<HtmlTagDisplayProps> = ({ htmlTag }) => {
       await navigator.clipboard.writeText(htmlTag);
       setCopied(true);
       toast({
-        title: "Copied to Clipboard!",
-        description: "The HTML tag has been copied.",
+        title: "Copied!",
+        description: "The HTML tag has been successfully copied to your clipboard.",
       });
       setTimeout(() => setCopied(false), 2500);
     } catch (err) {
       console.error('Failed to copy: ', err);
       toast({
         title: "Copy Failed",
-        description: "Could not copy the HTML tag.",
+        description: "Could not copy the HTML tag. Please try again.",
         variant: "destructive",
       });
     }
@@ -79,10 +79,10 @@ const HtmlTagDisplay: React.FC<HtmlTagDisplayProps> = ({ htmlTag }) => {
         size="icon"
         className={cn(
             "absolute top-3 right-3 h-8 w-8 p-1.5 rounded-lg shadow-md transition-all duration-150 ease-in-out",
-            "opacity-80 group-hover:opacity-100 focus:opacity-100 hover:scale-105",
-            copied 
-              ? "bg-accent hover:bg-accent/90 text-accent-foreground" 
-              : "bg-card hover:bg-accent/10 text-card-foreground hover:text-accent-foreground"
+            "opacity-90 group-hover:opacity-100 focus:opacity-100 hover:scale-105",
+            copied
+              ? "bg-accent hover:bg-accent/90 text-accent-foreground"
+              : "bg-card hover:bg-muted text-card-foreground hover:text-primary"
         )}
         onClick={handleCopy}
         aria-label={copied ? "Copied!" : "Copy HTML tag"}
